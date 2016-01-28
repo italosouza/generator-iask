@@ -1,0 +1,28 @@
+{
+  "name": "generator-iask",
+  "version": "1.0.0",
+  "description": "magic yeoman generator for iask-express",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "files": [
+    "generators/app",
+    "generators/controllers",
+    "generators/routes",
+    "generators/models"
+  ],
+  "author": "italosouza",
+  "dependencies": {
+    "deep-extend": "^0.4.1",
+    "generator-node": "^1.8.3",
+    "inquirer": "^0.11.3",
+    "lodash": "^4.0.0",
+    "mkdirp": "^0.5.1",
+    "path": "^0.12.7",
+    "yeoman-generator": "^0.22.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/italosouza/generator-iask.git"
+  }
+}
