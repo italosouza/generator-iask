@@ -1,21 +1,17 @@
 (function() {
   'use strict';
 
-  // Declare app level module which depends on views, and components
+  // declare os modulos criados como dependencia da aplicação
   angular.module('coreApp', [
     'angular-loading-bar',
     'ngRoute',
-    'ngResource',
-    'coreApp.dashboard',
-    'coreApp.form',
-    'coreApp.projeto',
-    'coreApp.fragmento'
+    'ngResource'
   ])
 
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .otherwise({
-        redirectTo: '/projeto',
+        redirectTo: '/',
         controller: 'appCtrl'
       });
   }])

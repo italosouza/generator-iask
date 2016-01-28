@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="coreApp" ng-controller="appCtrl">
 
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -18,28 +17,20 @@
   <!-- For iPhone -->
   <meta name="msapplication-TileColor" content="#00bcd4">
   <meta name="msapplication-TileImage" content="./static/images/favicon/mstile-144x144.png">
-  <!-- For Windows Phone -->
-
 
   <!-- CORE CSS-->
   <link href="app.min.css" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="style.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 
-
-  <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+  <!-- PLUGIN CSS -->
   <link href="vendor/material-preloader/css/materialPreloader.min.css" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="vendor/perfect-scrollbar/css/perfect-scrollbar.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 
   <!-- CSS LOAGIND BAR -->
-  <link rel='stylesheet' href='vendor/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
+  <link href='vendor/angular-loading-bar/build/loading-bar.min.css' type='text/css' rel='stylesheet' media='all' />
 
   <!-- angular-ui -->
   <link href="vendor/angular-ui/build/angular-ui.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-
-  <!-- codemirror -->
-  <link href="vendor/codemirror/lib/codemirror.css" type="text/css" rel="stylesheet" media="screen,projection">
-  <link href="vendor/codemirror/theme/monokai.css" type="text/css" rel="stylesheet" media="screen,projection">
-
 </head>
 
 <body>
@@ -73,7 +64,6 @@
           </li>
           <!-- <li><a ng-href="#/projeto" class="waves-effect waves-block waves-light"><i class="mdi-communication-chat"></i></a></li> -->
           <!-- <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light"><i class="mdi-social-notifications"></i></a></li> -->
-          
         </ul>
       </div>
     </nav>
@@ -102,7 +92,6 @@
       <!--end container-->
     </section>
     <!-- END CONTENT -->
-
   </div>
 </div>
 
@@ -135,41 +124,18 @@
 <script type="text/javascript" src="vendor/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
 <script type="text/javascript" src="vendor/material-preloader/js/materialPreloader.min.js"></script>
 
-<!-- codemirror -->
-<script type="text/javascript" src="vendor/codemirror/lib/codemirror.js"></script>
-<script type="text/javascript" src="vendor/codemirror/mode/pascal/pascal.js"></script>
-
 
 <script src="vendor/angular/angular.min.js"></script>
 <script src="vendor/angular-route/angular-route.min.js"></script>
 <script src="vendor/angular-resource/angular-resource.min.js"></script>
 <script src='vendor/angular-loading-bar/build/loading-bar.min.js' type='text/javascript'></script>
 <script src="vendor/angular-ui/build/angular-ui.min.js" type="text/javascript" ></script>
-<script src="vendor/ui-codemirror/src/ui-codemirror.js" type="text/javascript" ></script>
 
 <!-- ngstorage -->
 <script type="text/javascript" src="vendor/ngstorage/ngStorage.min.js"></script>
 
-<script src="main.min.js" type="text/javascript"></script>
-
-
-<!-- Toast Notification 
- <script type="text/javascript">
-  // Toast Notification
-  //    $(window).load(function() {
-  //      setTimeout(function() {
-  //        Materialize.toast('<span>Aviso.</span>', 1500);
-  //      }, 1500);
-  //      setTimeout(function() {
-  //        Materialize.toast('<span>Arraste para ocultar!</span>', 3000);
-  //      }, 5000);
-  //      setTimeout(function() {
-  //        Materialize.toast('<span>Nova mensagem.</span><a class="btn-flat yellow-text" href="#">LER<a>', 3000);
-  //      }, 15000);
-  //    });
-
-// </script>
--->
+<!-- custom javascript -->
+<script type="text/javascript" src="main.min.js"></script>
 
 </body>
 </html>
