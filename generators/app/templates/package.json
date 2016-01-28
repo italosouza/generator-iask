@@ -1,5 +1,6 @@
 {
     "name": "",
+    "license": "WTFPL",
     "version": "1.0.0",
     "description": "IASK Admin Painel",
     "devDependencies": {

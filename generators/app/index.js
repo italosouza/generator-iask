@@ -26,7 +26,7 @@ module.exports = generators.Base.extend({
 
     askName({
         name: 'name',
-        message: 'Informe o nome do projeto',
+        message: 'Informe o nome do projeto:',
         default: makeGeneratorName('iask-express'),
         filter: makeGeneratorName,
         validate: function(str) {
