@@ -99,6 +99,7 @@ module.exports = generators.Base.extend({
     this.log('      yo iask:server modulo');
     this.log('\nPara criar um módulo front (angularJS) digite: ');
     this.log('      yo iask:client modulo');
+    this.log('\nPara construir a aplicação: gulp build');
   }
 
 });
