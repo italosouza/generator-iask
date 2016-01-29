@@ -1,7 +1,6 @@
 'use strict';
 var path = require('path');
 var generators = require('yeoman-generator');
-var _ = require('lodash');
 var yosay = require('yosay');
 
 module.exports = generators.Base.extend({

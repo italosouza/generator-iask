@@ -1,30 +1,37 @@
 {
   "name": "generator-iask",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "magic yeoman generator for iask-express with materialized front-end",
   "keywords": [
     "yeoman-generator"
   ],
+  "main": "generators/app/index.js",
   "files": [
     "generators/app",
-    "generators/controllers",
-    "generators/routes",
-    "generators/models"
+    "generators/client",
+    "generators/config",
+    "generators/server",
+    "generators/scaffold"
   ],
   "author": "italosouza",
   "dependencies": {
     "deep-extend": "^0.4.1",
-    "generator-node": "^1.8.3",
-    "inquirer": "^0.11.3",
     "lodash": "^4.0.0",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",
+    "yeoman-assert": "^2.1.1",
     "yeoman-generator": "^0.22.4",
     "yosay": "^1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/italosouza/generator-iask.git"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec --timeout 3000"
   },
   "license": "WTFPL"
 }

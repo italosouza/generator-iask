@@ -1,17 +1,15 @@
 'use strict';
 var path = require('path');
 var generators = require('yeoman-generator');
-var askName = require('inquirer-npm-name');
 var _ = require('lodash');
 var extend = require('deep-extend');
 var mkdirp = require('mkdirp');
 var yosay = require('yosay');
 
-//valida o nome do CRUD
-function makeGeneratorName(name) {
-  name = _.kebabCase(name);
-  // name = name.indexOf('generator-') === 0 ? name : 'generator-' + name;
-  return name;
+//valida o nome projeto
+function gerarNomeProjeto(pNome) {
+  pNome = _.kebabCase(pNome);
+  return pNome;
 }
 
 module.exports = generators.Base.extend({
@@ -25,20 +23,20 @@ module.exports = generators.Base.extend({
   prompting: function() {
     var done = this.async();
 
-    askName({
-        name: 'name',
-        message: 'Informe o nome do projeto:',
-        default: makeGeneratorName('iask-express'),
-        filter: makeGeneratorName,
-        validate: function(str) {
-          return str.length > 0;
-        }
-      },
-      this,
-      function(name) {
-        this.props.name = name;
-        done();
-      }.bind(this));
+    var prompts = [{
+      type: 'input',
+      name: 'name',
+      default: gerarNomeProjeto('iask-express'),
+      filter: gerarNomeProjeto,
+      message: 'Informe o nome do projeto:'
+    }];
+
+    this.prompt(prompts, function(pRespostas) {
+      this.props.name = pRespostas.name;
+
+      done();
+    }.bind(this));
+
   },
 
   //roda o gerador principal
