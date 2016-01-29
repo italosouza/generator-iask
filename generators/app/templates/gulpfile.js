@@ -8,9 +8,15 @@ var uglify = require('gulp-uglify');
 var cache = require('gulp-cache');
 var nano = require('gulp-cssnano');
 var sass = require('gulp-sass');
+var imagemin = require('gulp-imagemin');
 
 gulp.task('images', function() {
   gulp.src('./client/static/images/**/*')
+    .pipe(cache(imagemin({
+      optimizationLevel: 3,
+      progressive: true,
+      interlaced: true
+    })))
     .pipe(gulp.dest('./dist/public/static/images/'));
 });
 
