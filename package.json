@@ -1,7 +1,7 @@
 {
   "name": "generator-iask",
   "version": "1.0.0",
-  "description": "magic yeoman generator for iask-express",
+  "description": "magic yeoman generator for iask-express with materialized front-end",
   "keywords": [
     "yeoman-generator"
   ],
@@ -19,12 +19,12 @@
     "lodash": "^4.0.0",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",
-    "yeoman-generator": "^0.22.4"
+    "yeoman-generator": "^0.22.4",
+    "yosay": "^1.1.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/italosouza/generator-iask.git"
   },
   "license": "WTFPL"
-
 }

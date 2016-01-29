@@ -5,6 +5,7 @@ var askName = require('inquirer-npm-name');
 var _ = require('lodash');
 var extend = require('deep-extend');
 var mkdirp = require('mkdirp');
+var yosay = require('yosay');
 
 //valida o nome do CRUD
 function makeGeneratorName(name) {
@@ -95,11 +96,7 @@ module.exports = generators.Base.extend({
 
   end: function() {
 
-    this.log('\nPara criar um módulo express digite: ');
-    this.log('      yo iask:server modulo');
-    this.log('\nPara criar um módulo front (angularJS) digite: ');
-    this.log('      yo iask:client modulo');
-    this.log('\nPara construir a aplicação: gulp build');
+    this.log(yosay('\nPara criar um módulo digite: \nyo iask:scaffold modulo\ngulp build'));
   }
 
 });
