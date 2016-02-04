@@ -1,4 +1,4 @@
-# IASK [![Build Status](https://travis-ci.org/italosouza/generator-iask.svg?branch=master)](https://travis-ci.org/italosouza/generator-iask) 
+# IASK [![Build Status](https://travis-ci.org/italosouza/generator-iask.svg?branch=master)](https://travis-ci.org/italosouza/generator-iask) [![Coverage Status](https://coveralls.io/repos/github/italosouza/generator-iask/badge.svg?branch=master)](https://coveralls.io/github/italosouza/generator-iask?branch=master)
 
 > [Yeoman](http://yeoman.io) generator para prototipação de aplicações web utilizando [gulp](http://gulpjs.com/) como ferramenta de construção.
 
