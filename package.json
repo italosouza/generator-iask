@@ -24,6 +24,8 @@
     "yosay": "^1.1.0"
   },
   "devDependencies": {
+    "coveralls": "^2.11.6",
+    "istanbul": "^0.4.2",
     "mocha": "*"
   },
   "repository": {
@@ -31,7 +33,8 @@
     "url": "https://github.com/italosouza/generator-iask.git"
   },
   "scripts": {
-    "test": "mocha --reporter spec --timeout 3000"
+    "test": "mocha --reporter spec --timeout 3000",
+    "coveralls": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./test/*"
   },
   "license": "WTFPL"
 }
