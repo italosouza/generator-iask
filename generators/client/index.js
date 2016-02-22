@@ -38,16 +38,8 @@ module.exports = generators.Base.extend({
     );
 
     this.fs.copyTpl(
-      this.templatePath('modulo/modulo_cad.html'),
-      this.destinationPath(path.join('./client/modules/', this.namespace, '/', this.namespace + '_cad.html')), {
-        generatorName: this.namespace,
-        generatorModel: _.capitalize(this.namespace)
-      }
-    );
-
-    this.fs.copyTpl(
-      this.templatePath('modulo/modulo_con.html'),
-      this.destinationPath(path.join('./client/modules/', this.namespace, '/', this.namespace + '_con.html')), {
+      this.templatePath('modulo/modulo.html'),
+      this.destinationPath(path.join('./client/modules/', this.namespace, '/', this.namespace + '.html')), {
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }

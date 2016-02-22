@@ -69,20 +69,46 @@ module.exports = generators.Base.extend({
     );
 
     this.fs.copyTpl(
-      this.templatePath('plugins.js'),
-      this.destinationPath(path.join('./client/plugins.js'))
-    );
-
-    this.fs.copyTpl(
       this.templatePath('app.js'),
       this.destinationPath(path.join('./client/app.js'))
     );
 
-    this.fs.copy(
-      this.templatePath('./static/*/**'),
-      this.destinationPath(path.join('./client/static'))
-    );
+    // this.fs.copy(
+    //   this.templatePath('./static/*/**'),
+    //   this.destinationPath(path.join('./client/static'))
+    // );
 
+
+    // this.fs.copyTpl(
+    //   this.templatePath('modules/navegacao/navegacao.js'),
+    //   this.destinationPath('./client/modules/navegacao/navegacao.js'), {
+    //     //troca as tags <%= generatorName %> pelo valor passado por parametro
+    //     generatorName: this.namespace,
+    //     generatorModel: _.capitalize(this.namespace)
+    //   }
+    // );
+
+    // this.fs.copyTpl(
+    //   this.templatePath('modules/navegacao/navegacao.html'),
+    //   this.destinationPath('./client/modules/navegacao/navegacao.html'), {
+    //     generatorName: this.namespace,
+    //     generatorModel: _.capitalize(this.namespace)
+    //   }
+    // );
+
+    //gerador do sub-modulo
+    this.composeWith('cliente', {
+      arguments: ['navegacao']
+    }, {
+      local: require.resolve('../client')
+    });
+
+    //gerador do sub-modulo
+    this.composeWith('server', {
+      arguments: ['navegacao']
+    }, {
+      local: require.resolve('../server')
+    });
 
   }
 });

@@ -5,18 +5,27 @@ module.exports = function() {
 
   var schema = mongoose.Schema({
     nome: {
+      type: String
+    },
+    rota: {
       type: String,
       required: true,
       index: {
         unique: true
       }
     },
+    icon: {
+      type: String
+    },
     descricao: {
       type: String
     },
-    inclusao: {
+    dtInclusao: {
       type: Date,
       default: Date.now
+    },
+    sistema: {
+      type: String
     }
   });
 

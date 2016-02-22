@@ -5,18 +5,16 @@ var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
-var cache = require('gulp-cache');
 var nano = require('gulp-cssnano');
-var sass = require('gulp-sass');
 var imagemin = require('gulp-imagemin');
 
 gulp.task('images', function() {
   gulp.src('./client/static/images/**/*')
-    .pipe(cache(imagemin({
+    .pipe(imagemin({
       optimizationLevel: 3,
       progressive: true,
       interlaced: true
-    })))
+    }))
     .pipe(gulp.dest('./dist/public/static/images/'));
 });
 
@@ -28,18 +26,12 @@ gulp.task('styles', function() {
         this.emit('end');
       }
     }))
-    // .pipe(sass())
     .pipe(autoprefixer('last 2 versions'))
     .pipe(rename({
       suffix: '.min'
     }))
     .pipe(nano())
     .pipe(gulp.dest('./dist/public'))
-});
-
-gulp.task('copyfonts', function() {
-  gulp.src('./client/static/**/*.{eot,ttf,woff,woff2,eof,svg}')
-    .pipe(gulp.dest('./dist/public/static'));
 });
 
 gulp.task('copyhtml', function() {
@@ -66,7 +58,7 @@ gulp.task('scripts', function() {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('./dist/public/'))
+    // .pipe(gulp.dest('./dist/public/'))
     .pipe(rename({
       suffix: '.min'
     }))
@@ -95,4 +87,4 @@ gulp.task('default', function() {
   gulp.watch("./client/**/*.html", ['copyhtml']);
 });
 
-gulp.task('build', ['images', 'styles', 'copyfonts', 'copyhtml', 'scripts', 'copyvendor', 'server']);
+gulp.task('build', ['images', 'styles', 'copyhtml', 'scripts', 'copyvendor', 'server']);

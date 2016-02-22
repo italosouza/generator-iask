@@ -1,141 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="coreApp" ng-controller="appCtrl">
+  <head>
+    <title>IASK</title>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="msapplication-tap-highlight" content="no">
-  <meta name="description" content="Painel IASK">
-  <meta name="keywords" content="iask">
-  <title>{{painel.titulo}}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-  <!-- Favicons-->
-  <link rel="icon" href="./static/images/favicon/favicon-32x32.png" sizes="32x32">
-  <!-- Favicons-->
-  <link rel="apple-touch-icon-precomposed" href="./static/images/favicon/apple-touch-icon-152x152.png">
-  <!-- For iPhone -->
-  <meta name="msapplication-TileColor" content="#00bcd4">
-  <meta name="msapplication-TileImage" content="./static/images/favicon/mstile-144x144.png">
+    <link rel="stylesheet" href="vendor/angular-material/angular-material.min.css"/>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- CSS LOAGIND BAR -->
+    <link rel='stylesheet' href='vendor/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
+    <link rel="stylesheet" href="app.min.css"/>
 
-  <!-- CORE CSS-->
-  <link href="app.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-  <link href="style.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
 
-  <!-- PLUGIN CSS -->
-  <link href="vendor/material-preloader/css/materialPreloader.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-  <link href="vendor/perfect-scrollbar/css/perfect-scrollbar.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+  </head>
 
-  <!-- CSS LOAGIND BAR -->
-  <link href='vendor/angular-loading-bar/build/loading-bar.min.css' type='text/css' rel='stylesheet' media='all' />
+  <body layout="column" ng-cloak >
 
-  <!-- angular-ui -->
-  <link href="vendor/angular-ui/build/angular-ui.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-</head>
+    <!-- toolbar principal -->
+    <md-toolbar>
+      <div class="md-toolbar-tools" class="md-whiteframe-z1" ng-show="listaMenu">
+        <md-button class="md-icon-button" hide-gt-sm ng-click="toggleMenu()" aria-label="Menu">
+          <md-icon>menu</md-icon>
+        </md-button>
 
-<body>
+        <md-button aria-label="Item do menu" ng-show="menuSelecionado"><h3>{{menuSelecionado.name}}</h3></md-button>
 
-<!-- Start Page Loading -->
-<div id="loader-wrapper">
-  <div id="loader"></div>
-  <div class="loader-section section-left"></div>
-  <div class="loader-section section-right"></div>
-</div>
-<!-- End Page Loading -->
+        <span flex></span>
 
-<!-- //////////////////////////////////////////////////////////////////////////// -->
-
-<!-- START HEADER -->
-
-<header id="header" class="page-topbar">
-  <!-- start header nav-->
-  <div class="navbar-fixed">
-    <nav class="cyan">
-      <div class="nav-wrapper">
-        <h1 class="logo-wrapper"><a href="#/" class="brand-logo darken-1"><img src="./static/images/materialize-logo.png" alt="logo" width="140px"></a> <span class="logo-text">Compendium</span></h1>
-        <ul class="right hide-on-med-and-down">
-          <li class="search-out">
-            <input id="search-field" type="text" class="search-out-text">
-          </li>
-          <li>
-            <a href="javascript:void(0);" class="waves-effect waves-block waves-light show-search"><i class="mdi-action-search"></i></a>
-          </li>
-          <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen"><i class="mdi-action-settings-overscan"></i></a>
-          </li>
-          <!-- <li><a ng-href="#/projeto" class="waves-effect waves-block waves-light"><i class="mdi-communication-chat"></i></a></li> -->
-          <!-- <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light"><i class="mdi-social-notifications"></i></a></li> -->
-        </ul>
+        <md-button class="md-icon-button" aria-label="Favorite">
+          <md-icon style="color: greenyellow;">build</md-icon>
+        </md-button>
+        
+        <md-button class="md-icon-button" aria-label="More">
+          <md-icon>face</md-icon>
+        </md-button>
+        
       </div>
-    </nav>
-  </div>
-  <!-- end header nav-->
-</header>
-<!-- END HEADER -->
+    </md-toolbar>
 
-<!-- //////////////////////////////////////////////////////////////////////////// -->
 
-  
-<!-- START MAIN -->
-<div id="">
-  <!-- START WRAPPER -->
-  <div class="wrapper">
+    <div flex layout="row" tabIndex="-1" role="main">
 
-    <!-- START CONTENT -->
-    <section id="content">
+      <!-- navegação lateral esquerda  -->
+      <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+          md-component-id="left"
+          aria-label="Menu"
+          ng-click="toggleMenu()"
+          md-is-locked-open="$mdMedia('gt-sm')"
+          ng-show="listaMenu">
 
-      <!--start container-->
-      <div class="container">
+        <!-- lista de itens da navegação -->
+        <md-list>
+          <md-list-item ng-repeat="menu in listaMenu">
+              <md-button ng-click="selecionarItemMenu(menu)" ng-class="{'selected' : menu === menuSelecionado }">
+                <md-icon class="material-icons md-48">{{menu.icon}}</md-icon>
+                {{menu.nome}}
+              </md-button>
+          </md-list-item>
+        </md-list>
+      </md-sidenav>
 
-        <div ng-view></div>
-
+      <div flex layout="column">
+        <!-- conteudo do layout -->
+        <md-content flex ng-view ></md-content>
       </div>
-      <!--end container-->
-    </section>
-    <!-- END CONTENT -->
-  </div>
-</div>
 
-
-<!-- //////////////////////////////////////////////////////////////////////////// -->
-
-<!-- START FOOTER -->
-<footer class="page-footer">
-  <div class="container">
-  </div>
-  <div class="footer-copyright">
-    <div class="container">
-      Copyright © 2016 <a class="grey-text text-lighten-4" href="" target="_blank">IASK</a> Todos os direitos reservados
-      <span class="right">Desenvolvido por <a class="grey-text text-lighten-4" href="http://iask.koding.io/">IASK</a></span>
     </div>
-  </div>
-</footer>
-<!-- END FOOTER -->
 
 
-<!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- angular core  -->
+    <script src="vendor/angular/angular.min.js"></script>
+    <script src="vendor/angular-animate/angular-animate.js"></script>
+    <script src="vendor/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="vendor/angular-material/angular-material.js"></script>
+    <!-- angular routes  -->
+    <script src="vendor/angular-route/angular-route.min.js"></script>
+    <script src="vendor/angular-resource/angular-resource.min.js"></script>
+    <!-- angular addons -->
+    <script src='vendor/angular-loading-bar/build/loading-bar.min.js' type='text/javascript'></script>
 
-<!-- jQuery Library -->
-<script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
-
-<!--materialize js-->
-<script type="text/javascript" src="vendor/materialize/dist/js/materialize.min.js"></script>
-
-<!--scrollbar-->
-<script type="text/javascript" src="vendor/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
-<script type="text/javascript" src="vendor/material-preloader/js/materialPreloader.min.js"></script>
-
-
-<script src="vendor/angular/angular.min.js"></script>
-<script src="vendor/angular-route/angular-route.min.js"></script>
-<script src="vendor/angular-resource/angular-resource.min.js"></script>
-<script src='vendor/angular-loading-bar/build/loading-bar.min.js' type='text/javascript'></script>
-<script src="vendor/angular-ui/build/angular-ui.min.js" type="text/javascript" ></script>
-
-<!-- ngstorage -->
-<script type="text/javascript" src="vendor/ngstorage/ngStorage.min.js"></script>
-
-<!-- custom javascript -->
-<script type="text/javascript" src="main.min.js"></script>
-
-</body>
+    <!-- core app -->
+    <script type="text/javascript" src="main.min.js"></script>
+  </body>
 </html>

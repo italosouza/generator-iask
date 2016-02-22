@@ -6,15 +6,15 @@
   //define as rotas do modulo
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/<%= generatorName %>', {
-        templateUrl: 'modules/<%= generatorName %>/<%= generatorName %>_con.html',
+        templateUrl: 'modules/<%= generatorName %>/<%= generatorName %>.html',
         controller: '<%= generatorModel %>Controller'
       })
       .when('/<%= generatorName %>/edit', {
-        templateUrl: 'modules/<%= generatorName %>/<%= generatorName %>_cad.html',
+        templateUrl: 'modules/<%= generatorName %>/<%= generatorName %>.html',
         controller: '<%= generatorModel %>Controller'
       })
       .when('/<%= generatorName %>/edit/:id', {
-        templateUrl: 'modules/<%= generatorName %>/<%= generatorName %>_cad.html',
+        templateUrl: 'modules/<%= generatorName %>/<%= generatorName %>.html',
         controller: '<%= generatorModel %>Controller'
       });
   }])
@@ -25,71 +25,122 @@
   }])
 
   //define a controller do modulo
-  .controller('<%= generatorModel %>Controller', ['$scope', '$routeParams', '<%= generatorModel %>Service', function($scope, $routeParams, <%= generatorModel %>Service) {
+  .controller('<%= generatorModel %>Controller', ['$scope', '$routeParams', '<%= generatorModel %>Service', '$mdDialog', 'MENSAGENS', function($scope, $routeParams, <%= generatorModel %>Service, $mdDialog, MENSAGENS) {
+    var bItemSelecionado = false;
+    $scope.itemSelecionado = null;
+    $scope.tabs = {
+      selectedIndex: 0
+    };
 
     $scope.lista = [];
-    $scope.titulo = 'IASK';
     $scope.mensagem = {
+      classe: MENSAGENS.corNormal,
       texto: ''
     };
 
-    //setup inicial do objeto (editar/cadastrar)
-    if ($routeParams.id) {
+    $scope.selecionarItemCadastro = function(pItem) {
+      $scope.buscar(pItem);
 
-      <%= generatorModel %>Service.get({
-          id: $routeParams.id
-        },
-        function( <%= generatorName %> ) {
-          $scope.<%= generatorName %> = <%= generatorName %> ;
-        },
-        function(error) {
+      $scope.itemSelecionado = 1;
+      bItemSelecionado = true;
+      $scope.tabs.selectedIndex = 1;
+    };
+
+    $scope.$watch('tabs.selectedIndex', function(current) {
+      $scope.mensagem = {
+        classe: MENSAGENS.corNormal,
+        texto: ''
+      };
+
+      if (!bItemSelecionado && current === 1) {
+        $scope.itemSelecionado = new <%= generatorModel %>Service();
+      } else if (current === 0) {
+        $scope.listar();
+      }
+      bItemSelecionado = false;
+    });
+
+    $scope.removerItemCadastro = function(pItem, pEvent) {
+      var confirm = $mdDialog.confirm()
+        .title('Deseja remover este registro?')
+        .textContent('Ao confirmar esta operação o registro será removido e não será possível recuperá-lo.')
+        .ariaLabel('Remover')
+        .targetEvent(pEvent)
+        .ok('SIM')
+        .cancel('NÃO');
+
+      $mdDialog.show(confirm)
+        .then(function() {
+          $scope.remover(pItem);
+        }, function() {
           $scope.mensagem = {
-            texto: '<%= generatorModel %>Service não existe.'
+            texto: '',
+            status: 'nok',
+            obj: pItem
           };
-          console.error(error);
         });
 
-    } else {
-      $scope. <%= generatorName %> = new <%= generatorModel %>Service();
-    }
+    };
+
+    $scope.buscar = function(pItem) {
+      if (pItem._id) { <%= generatorModel %>Service.get({
+            id: pItem._id
+          },
+          function(pItem) {
+            $scope.itemSelecionado = pItem;
+          },
+          function(error) {
+            $scope.mensagem = {
+              texto: 'Navegação não existe.'
+            };
+            console.error(error);
+          });
+
+      }
+    };
 
     $scope.salvar = function() {
-      $scope.<%= generatorName %>.$save()
+      $scope.itemSelecionado.$save()
         .then(function() {
-          // console.log('Salvo', obj);
           $scope.mensagem = {
-            texto: 'Salvo com sucesso'
+            texto: 'Salvo com sucesso',
+            classe: MENSAGENS.corAviso
           };
-          $scope.<%= generatorName %> = new <%= generatorModel %>Service();
         })
         .catch(function(erro) {
           $scope.mensagem = {
             texto: 'Não foi possível salvar',
+            classe: MENSAGENS.corErro,
             error: erro
           };
+          console.table(erro);
         });
     };
 
-    function buscar() { <%= generatorModel %>Service.query(
-        function( <%= generatorName %> ) {
-          $scope.lista = <%= generatorName %>;
+    $scope.listar = function() { <%= generatorModel %>Service.query(
+        function(pLista) {
+          $scope.lista = pLista;
         },
         function(error) {
-          console.error('Não foi possível obter a lista de <%= generatorName %>');
+          $scope.mensagem = {
+            texto: 'Não foi possível obter a lista de registros',
+            classe: MENSAGENS.corErro,
+            error: error
+          };
           console.table(error);
         });
-    }
-
-    $scope.listar = function() {
-      buscar();
     };
 
-    $scope.remover = function( <%= generatorName %> ) { <%= generatorModel %>Service.delete({
-          id: <%= generatorName %>._id
+    $scope.remover = function(pItem) { <%= generatorModel %>Service.delete({
+          id: pItem._id
         },
-        buscar,
+        $scope.listar,
         function(error) {
-          console.error('Não foi possível obter a lista de <%= generatorName %>');
+          $scope.mensagem = {
+            texto: 'Não foi possível obter a lista de registros',
+            classe: MENSAGENS.corErro,
+            error: error
+          };
           console.table(error);
         });
     };
