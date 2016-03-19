@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 module.exports = function() {
   var app = express();
 
-  app.set('port', 80);
+  app.set('port', 8080);
   app.set('secretKey', 'senhaSuperSecreta');
   app.use(express.static('./public'));
 

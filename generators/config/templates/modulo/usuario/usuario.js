@@ -1,27 +1,27 @@
 (function() {
   'use strict';
 
-    angular.module('coreApp.<%= generatorName %>', ['ngRoute'])
+    angular.module('coreApp.usuario', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-      $routeProvider.when('/<%= generatorName %>', {
-          templateUrl: 'modules/<%= generatorName %>/<%= generatorName %>.html',
-          controller: '<%= generatorModel %>Controller'
+      $routeProvider.when('/usuario', {
+          templateUrl: 'modules/usuario/usuario.html',
+          controller: 'UsuarioController'
         });
     }])
 
     //define o service do modulo
-    .service('<%= generatorModel %>Service', ['CoreService', function(CoreService) {
+    .service('UsuarioService', ['CoreService', function(CoreService) {
       return angular.extend(this, CoreService);
     }])
 
-    .controller('<%= generatorModel %>Controller', ['$scope', '$mdDialog', '<%= generatorModel %>Service', function($scope, $mdDialog, <%= generatorModel %>Service) {
+    .controller('UsuarioController', ['$scope', '$mdDialog', 'UsuarioService', function($scope, $mdDialog, UsuarioService) {
 
       //init
-      <%= generatorModel %>Service.setServiceName('<%= generatorName %>');
+      UsuarioService.setServiceName('usuario');
 
       //bindings
-      $scope.data = <%= generatorModel %>Service.data;
+      $scope.data = UsuarioService.data;
 
       var bItemSelecionado = false;
       $scope.tabs = {
@@ -36,9 +36,9 @@
 
       $scope.$watch('tabs.selectedIndex', function(current) {
         if (current === 0) {
-          <%= generatorModel %>Service.consultar();
+          UsuarioService.consultar();
         } else if (!bItemSelecionado && current === 1) {
-          <%= generatorModel %>Service.initCadastro();
+          UsuarioService.initCadastro();
         }
 
         bItemSelecionado = false;
@@ -57,14 +57,14 @@
 
         $mdDialog.show(confirm)
           .then(function() {
-            <%= generatorModel %>Service.remover(pItem);
+            UsuarioService.remover(pItem);
           });
       };
 
 
       //core behavior
       $scope.salvar = function() {
-        <%= generatorModel %>Service.salvar($scope.data.itemSelecionado);
+        UsuarioService.salvar($scope.data.itemSelecionado);
       };
 
 

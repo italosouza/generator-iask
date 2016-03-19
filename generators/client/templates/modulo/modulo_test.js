@@ -8,8 +8,8 @@ describe('coreApp.<%= generatorName %> module', function() {
 
     it('should ....', inject(function($controller) {
       //spec body
-      var <%= generatorName %> Ctrl = $controller('<%= generatorModel %>Ctrl');
-      expect( <%= generatorName %> Ctrl).toBeDefined();
+      var <%= generatorName %>Controller = $controller('<%= generatorModel %>Controller');
+      expect( <%= generatorName %>Controller).toBeDefined();
     }));
 
   });

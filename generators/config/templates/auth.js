@@ -2,43 +2,52 @@ var jwt = require('jwt-simple');
 var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(app) {
-  var auth = {};
 
-
-  auth.validarAutenticacao = function(req, res, next) {
-    return next();
-
-    // var _token = req.headers['x-auth'];
-
-    // if (_token) {
-    //   console.log('Validando token\n');
-
-    //   _token = jwt.decode(_token, app.get('secretKey'));
-
-    //   var Usuario = app.models.usuario;
-    //   Usuario.findOne({
-    //       nome: _token.usuario.nome,
-    //       senha: _token.usuario.senha
-    //     })
-    //     // .select('senha')
-    //     .select('nome')
-    //     .exec(function(err, pUsuario) {
-    //       if (err) {
-    //         return next(err);
-    //       }
-    //       if (!pUsuario) {
-    //         return res.sendStatus(401);
-    //       }
-
-    //       return next();
-    //     });
-    // } else {
-    //   res.sendStatus('401');
-    // }
+  var auth = {
+    validarAutenticacao: validarAutenticacao,
+    validarSenhaUsuario: validarSenhaUsuario,
+    login: login
   };
 
+  return auth;
 
-  auth.validarSenhaUsuario = function(pUsuario, psSenha, next, callBack) {
+
+  function validarAutenticacao(req, res, next) {
+    var _token = req.headers['x-auth'] || false;
+
+    if (_token) {
+
+      try {
+        _token = jwt.decode(_token, app.get('secretKey'));
+        // var Usuario = app.models.usuario;
+        // Usuario.findOne({
+        //     nome: _token.usuario.nome,
+        //     senha: _token.usuario.senha
+        //   })
+        //   // .select('senha')
+        //   .select('nome')
+        //   .exec(function(err, pUsuario) {
+        //     if (err) {
+        //       return next(err);
+        //     }
+        //     if (!pUsuario) {
+        //       return res.sendStatus(401);
+        //     }
+
+        return next();
+        //   });
+
+      } catch (err) {
+        res.sendStatus(401);
+      }
+    } else {
+      res.sendStatus(401);
+    }
+
+  }
+
+
+  function validarSenhaUsuario(pUsuario, psSenha, next, callBack) {
     bcrypt.compare(psSenha, pUsuario.senha, function(err, pSenhaValida) {
       if (err) {
         return next(err);
@@ -59,9 +68,9 @@ module.exports = function(app) {
       callBack(null, _token);
 
     });
-  };
+  }
 
-  auth.login = function(req, res, next) {
+  function login(req, res, next) {
 
     var Usuario = app.models.usuario;
     Usuario.findOne({
@@ -77,7 +86,7 @@ module.exports = function(app) {
           return res.sendStatus(401);
         }
 
-        auth.validarSenhaUsuario(pUsuario, req.body.senha, next, function(err, token) {
+        validarSenhaUsuario(pUsuario, req.body.senha, next, function(err, token) {
           if (err) {
             res.status(err.code).json(err.msg);
           }
@@ -85,8 +94,5 @@ module.exports = function(app) {
         });
 
       });
-
-  };
-
-  return auth;
+  }
 };

@@ -38,7 +38,6 @@ describe('gerador', function() {
       './client/app.js',
       './client/index.html',
       './client/modules',
-      './client/style.css',
       './client/modules/navegacao',
       './client/modules/navegacao/navegacao.html',
       './client/modules/navegacao/navegacao.js',

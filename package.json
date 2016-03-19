@@ -1,7 +1,7 @@
 {
   "name": "generator-iask",
-  "version": "1.2.0",
-  "description": "magic yeoman generator for iask-express with materialized front-end",
+  "version": "1.3.0",
+  "description": "magic yeoman generator for iask-express with material design front-end",
   "keywords": [
     "yeoman-generator"
   ],

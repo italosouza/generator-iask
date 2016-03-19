@@ -27,7 +27,7 @@ module.exports = generators.Base.extend({
     if (packageJSON.name == undefined) {
       this.log.error('Este comando deve ser executado no diretório do projeto.');
       process.exit(1);
-    };
+    }
 
     // conteudo relacionado ao backend
     this.fs.copyTpl(
@@ -72,29 +72,26 @@ module.exports = generators.Base.extend({
       this.templatePath('app.js'),
       this.destinationPath(path.join('./client/app.js'))
     );
-
-    // this.fs.copy(
-    //   this.templatePath('./static/*/**'),
-    //   this.destinationPath(path.join('./client/static'))
-    // );
-
-
-    // this.fs.copyTpl(
-    //   this.templatePath('modules/navegacao/navegacao.js'),
-    //   this.destinationPath('./client/modules/navegacao/navegacao.js'), {
-    //     //troca as tags <%= generatorName %> pelo valor passado por parametro
-    //     generatorName: this.namespace,
-    //     generatorModel: _.capitalize(this.namespace)
-    //   }
-    // );
-
-    // this.fs.copyTpl(
-    //   this.templatePath('modules/navegacao/navegacao.html'),
-    //   this.destinationPath('./client/modules/navegacao/navegacao.html'), {
-    //     generatorName: this.namespace,
-    //     generatorModel: _.capitalize(this.namespace)
-    //   }
-    // );
+    
+    this.fs.copyTpl(
+      this.templatePath('services/**.*'),
+      this.destinationPath(path.join('./client/services'))
+    );
+    
+    this.fs.copyTpl(
+      this.templatePath('modulo/server/**/**.js'),
+      this.destinationPath(path.join('./server/app'))
+    );
+    
+    this.fs.copyTpl(
+      this.templatePath('modulo/login/**.*'),
+      this.destinationPath(path.join('./client/modules/login'))
+    );
+    this.fs.copyTpl(
+      this.templatePath('modulo/usuario/**.*'),
+      this.destinationPath(path.join('./client/modules/usuario'))
+    );
+    
 
     //gerador do sub-modulo
     this.composeWith('cliente', {
