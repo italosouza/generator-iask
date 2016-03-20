@@ -92,6 +92,11 @@ module.exports = generators.Base.extend({
       this.destinationPath(path.join('./client/modules/usuario'))
     );
     
+    this.fs.copyTpl(
+      this.templatePath('modelo.env'),
+      this.destinationPath(path.join('./modelo.env'))
+    );
+    
 
     //gerador do sub-modulo
     this.composeWith('cliente', {
