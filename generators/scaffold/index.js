@@ -37,7 +37,7 @@ module.exports = generators.Base.extend({
       choices: [{
         name: 'Front-end',
         value: 'front',
-        checked: true
+        checked: false
       }, {
         name: 'Back-end',
         value: 'back',

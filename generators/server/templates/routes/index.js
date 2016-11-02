@@ -1,5 +1,5 @@
 module.exports = function(app) {
-  var controller = app.controllers. <%= generatorName %> ;
+  var controller = app.controllers.<%= generatorName %>;
   var auth = app.services.auth;
 
   app.route('/<%= generatorName %>')

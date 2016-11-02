@@ -60,8 +60,8 @@ module.exports = generators.Base.extend({
       this.destinationPath(path.join('./'))
     );
     this.fs.copy(
-      this.templatePath('.bowerrc'),
-      this.destinationPath(path.join('./.bowerrc'))
+      this.templatePath('.gitignore'),
+      this.destinationPath(path.join('./.gitignore'))
     );
     this.fs.copy(
       this.templatePath('*.md'),

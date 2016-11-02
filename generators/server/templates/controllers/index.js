@@ -1,7 +1,7 @@
 module.exports = function(app) {
   var controller = {};
   //definir o MODEL
-  var _objeto = app.models. <%= generatorName %> ;
+  var _objeto = app.models.<%= generatorName %>;
 
   controller.listar = function(req, res) {
     _objeto.find().exec()
@@ -43,7 +43,7 @@ module.exports = function(app) {
         "_id": _id
       }).exec()
       .then(function() {
-          res.status(204).end();
+          res.status(200).json('Registro removido com sucesso.');
         },
         function(erro) {
           console.error('Remover -> Erro: \n', erro);

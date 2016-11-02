@@ -1,11 +1,19 @@
 ## Bem vindo
 
-Você acaba de criar o seu projeto, conte-nos um pouco mais sobre ele, quais suas intenções, publico alvo e qual problema ele pretente solucionar.
+Aplicação MongoDB + ExpressJs + Angular2 + Node.JS
 
-É sempre uma boa ideia orientar o publico sobre como utilizar o seu novo projeto.
+Na raiz do projeto encontra-se a aplicação servidora utilizando ExpressJs + MongoDB.
 
-## License
+## SERVIDOR
 
-[WTFPL license](http://www.wtfpl.net/)
+Execute `npm install` para instalar as dependencias e modulos necessários para rodar o servidor.
 
-![](http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-1.png)
+Em seguida execute `gulp build` para construir a aplicação.
+Execute `yo iask:scaffold modulo` para gerar um modulo servidor. (Atenção para não selecionar a opção Front-end).
+
+
+## CLIENTE
+
+Acesse o diretorio `cd cliente` e exeute `npm install` para instalar os modulos e dependencias da aplicação cliente.
+
+Para maiores informações, veja o README.md da pasta cliente.

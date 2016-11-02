@@ -1,52 +1,38 @@
 {
-  "name": "",
+  "name": "EXPREESS-API-MONGO",
   "private": true,
-  "version": "1.0.0",
-  "description": "IASK Admin Painel",
-  "repository": "",
-  "license": "WTFPL",
+  "version": "0.1.0",
+  "description": "A REST endpoint API",
+  "repository": "https://github.com/italosouza/express-api-mongo.git",
   "licenses": [
     {
-      "type": "WTFPL",
-      "url": "http://www.wtfpl.net/about/"
+      "type": "WTFPL"
     }
   ],
   "devDependencies": {
-    "angular-mocks": "^1.4.9",
-    "browser-sync": "^2.11.1",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
     "gulp-build": "^0.5.3",
-    "gulp-cache": "^0.4.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-cssnano": "^2.0.0",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-jshint": "^2.0.0",
-    "gulp-plumber": "^1.0.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.1",
-    "gulp-uglify": "^1.5.1",
-    "jshint": "^2.8.0",
-    "karma": "^0.13.19",
-    "karma-chrome-launcher": "^0.2.2",
-    "karma-jasmine": "^0.3.6",
-    "live-server": "^0.9.1"
+    "gulp-jshint": "^2.0.1",
+    "gulp-ng-build": "0.0.3",
+    "gulp-plumber": "^1.1.0",
+    "gulp-uglify": "^1.5.4",
+    "jshint": "^2.9.3"
   },
   "scripts": {
-      "prestart": "npm update",
-      "tests": "karma start ./test/karma.conf.js"
+    "prestart": "npm update"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.14.1",
-    "cookie-parser": "^1.4.0",
-    "express": "^4.13.4",
-    "express-load": "^1.1.15",
-    "express-session": "^1.12.1",
-    "jwt-simple": "^0.4.0",
-    "method-override": "^2.3.5",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
     "dotenv": "^2.0.0",
-    "mongoose": "^4.4.4",
+    "express": "^4.14.0",
+    "express-load": "^1.1.15",
+    "express-session": "^1.14.1",
+    "jwt-simple": "^0.4.1",
+    "method-override": "^2.3.6",
+    "mongoose": "^4.6.5",
     "mongoose-findorcreate": "^0.1.2"
   }
 }
