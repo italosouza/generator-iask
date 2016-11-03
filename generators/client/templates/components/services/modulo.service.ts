@@ -9,7 +9,7 @@ export class <%= generatorModel %>Service extends ServiceComponent {
 
   constructor (protected objeto: <%= generatorModel %>, protected http: Http) {
     super(objeto, http);
-    this.serviceURL = 'http://localhost:8080/receita';
+    this.serviceURL = 'http://localhost:8080/<%= generatorName %>';
   }
 
 
