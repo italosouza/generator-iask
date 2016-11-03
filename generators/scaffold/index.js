@@ -41,7 +41,7 @@ module.exports = generators.Base.extend({
       }, {
         name: 'Back-end',
         value: 'back',
-        checked: true
+        checked: false
       }]
     }];
 

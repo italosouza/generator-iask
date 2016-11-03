@@ -4,11 +4,11 @@
 
 ## Passo a passo
 
-- Instale as dependencias: `npm install -g yo gulp bower`
+- Instale as dependências: `npm install -g yo gulp`
 - instale o gerador: `npm install -g generator-iask`
 - Execute `yo iask` para criar o projeto.
 - Execute `yo iask:scaffold modulo` para criar um módulo.
-- Execute `gulp build` para construir a versão de produção do projeto.
+- Execute `gulp build` para construir o projeto.
 
 ## License
 

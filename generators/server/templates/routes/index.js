@@ -8,5 +8,6 @@ module.exports = function(app) {
 
   app.route('/<%= generatorName %>/:id')
     .get(auth.validarAutenticacao, controller.buscar)
+    .put(auth.validarAutenticacao, controller.salvar)
     .delete(auth.validarAutenticacao, controller.remover);
 };

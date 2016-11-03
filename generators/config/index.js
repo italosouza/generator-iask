@@ -30,73 +30,91 @@ module.exports = generators.Base.extend({
     }
 
     // conteudo relacionado ao backend
-    this.fs.copyTpl(
-      this.templatePath('database.js'),
-      this.destinationPath(path.join('./server/config/database.js'))
-    );
-
-    this.fs.copyTpl(
-      this.templatePath('express.js'),
-      this.destinationPath(path.join('./server/config/express.js'))
-    );
-
-    this.fs.copyTpl(
-      this.templatePath('server.js'),
-      this.destinationPath(path.join('./server/server.js')), {
-        generatorName: packageJSON.name
-      }
+    this.fs.copy(
+      this.templatePath('server/**/**.js'),
+      this.destinationPath(path.join('./server/'))
     );
 
     this.fs.copy(
-      this.templatePath('auth.js'),
-      this.destinationPath(path.join('./server/app/services/auth.js'))
+      this.templatePath('modelo.env'),
+      this.destinationPath(path.join('./.env'))
     );
 
     //conteudo relacionado ao front
     this.fs.copyTpl(
-      this.templatePath('.jshintrc'),
-      this.destinationPath(path.join('./client/.jshintrc'))
-    );
-
-    this.fs.copyTpl(
-      this.templatePath('*.html'),
+      this.templatePath('client/**/**.json'),
       this.destinationPath(path.join('./client/'))
     );
 
     this.fs.copyTpl(
-      this.templatePath('*.css'),
+      this.templatePath('client/**/**.js'),
       this.destinationPath(path.join('./client/'))
     );
 
     this.fs.copyTpl(
-      this.templatePath('app.js'),
-      this.destinationPath(path.join('./client/app.js'))
+      this.templatePath('client/**/**.ts'),
+      this.destinationPath(path.join('./client/'))
     );
-    
+
     this.fs.copyTpl(
-      this.templatePath('services/**.*'),
-      this.destinationPath(path.join('./client/services'))
+      this.templatePath('client/**/**.html'),
+      this.destinationPath(path.join('./client/'))
     );
-    
+
+    this.fs.copy(
+      this.templatePath('client/**/**.ico'),
+      this.destinationPath(path.join('./client/'))
+    );
+
     this.fs.copyTpl(
-      this.templatePath('modulo/server/**/**.js'),
-      this.destinationPath(path.join('./server/app'))
+      this.templatePath('client/**/**.md'),
+      this.destinationPath(path.join('./client/'))
     );
-    
+
     this.fs.copyTpl(
-      this.templatePath('modulo/login/**.*'),
-      this.destinationPath(path.join('./client/modules/login'))
+      this.templatePath('client/.gitignore'),
+      this.destinationPath(path.join('./client/.gitignore'))
     );
+
     this.fs.copyTpl(
-      this.templatePath('modulo/usuario/**.*'),
-      this.destinationPath(path.join('./client/modules/usuario'))
+      this.templatePath('client/**/**.css'),
+      this.destinationPath(path.join('./client/'))
     );
-    
-    this.fs.copyTpl(
-      this.templatePath('modelo.env'),
-      this.destinationPath(path.join('./modelo.env'))
+
+    this.fs.copy(
+      this.templatePath('client/**/**.svg'),
+      this.destinationPath(path.join('./client/'))
     );
-    
+
+    this.fs.copy(
+      this.templatePath('client/**/**.otf'),
+      this.destinationPath(path.join('./client/'))
+    );
+
+    this.fs.copy(
+      this.templatePath('client/**/**.eot'),
+      this.destinationPath(path.join('./client/'))
+    );
+
+    this.fs.copy(
+      this.templatePath('client/**/**.ttf'),
+      this.destinationPath(path.join('./client/'))
+    );
+
+    this.fs.copy(
+      this.templatePath('client/**/**.wof*'),
+      this.destinationPath(path.join('./client/'))
+    );
+
+    this.fs.copy(
+      this.templatePath('client/**/**.png'),
+      this.destinationPath(path.join('./client/'))
+    );
+
+    this.fs.copy(
+      this.templatePath('client/**/**.jpg'),
+      this.destinationPath(path.join('./client/'))
+    );
 
     //gerador do sub-modulo
     this.composeWith('cliente', {

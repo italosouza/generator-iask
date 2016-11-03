@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div vamiddle class="col-md-6 m-x-auto pull-xs-none">
+            <div class="card-group">
+                <div class="card p-a-2">
+                    <div class="card-block">
+                        <h1>Autenticar</h1>
+                        <p class="text-muted">Informe seu nome de usuário e senha para acessar o painel</p>
+                        <div class="input-group m-b-1">
+                            <span class="input-group-addon"><i class="icon-user"></i>
+                            </span>
+                            <input [(ngModel)]="user.nome" type="text" class="form-control" placeholder="Usuário">
+                        </div>
+                        <div class="input-group m-b-2">
+                            <span class="input-group-addon"><i class="icon-lock"></i>
+                            </span>
+                            <input [(ngModel)]="user.senha" type="password" class="form-control" placeholder="Senha">
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button type="button" (click)="onSubmit()" class="btn btn-primary p-x-2">Entrar</button>
+                            </div>
+                            <div class="col-xs-6 text-xs-right">
+                                <button type="button" class="btn btn-link p-x-0">Esqueceu sua senha?</button>
+                            </div>
+                        </div>
+
+                        <div>&nbsp;</div>
+
+                        <div class="row" [hidden]="!aviso">
+                            <div class="card card-inverse card-info text-xs-center col-xs-12 col-md-12">
+                                <div class="card-block">
+                                    <blockquote class="card-blockquote">
+                                        <p>{{aviso}}</p>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

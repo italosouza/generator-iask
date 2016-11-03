@@ -1,0 +1,127 @@
+<div class="animated fadeIn">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-edit"></i><strong><%= generatorModel %> </strong> {{rota.title}}
+                    <div class="card-actions">
+                        <a class="btn-close" [hidden]="!loading"><i class="fa fa-spin fa-refresh"></i></a>
+                        <!--<a class="btn-setting" [routerLink]="['/<%= generatorName %>/cadastrar']"><i class="fa fa-plus-square-o"></i></a>-->
+                        <!--<a class="btn-minimize" href="#"><i class="icon-arrow-up"></i></a>-->
+                    </div>
+                </div>
+
+                <div class="card-block">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="form-control-label" for="prependedInput">Nome</label>
+                            <div class="controls">
+                                <div class="input-prepend input-group">
+                                    <!--<span class="input-group-addon">@</span>-->
+                                    <input [(ngModel)]="objeto.nome" name="nome" class="form-control" id="prependedInput" size="16" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!--<div class="row">
+                            <div class="form-group col-sm-4">
+                                <label for="previsto">Tipo</label>
+                                <select [(ngModel)]="objeto.tipo" name="tipo" class="form-control" id="previsto" >
+                                    <option value="EVENTUAL" selected>Eventual</option>
+                                    <option value="PREVISTO">Previsto</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="frequencia">Frequência</label>
+                                <select [(ngModel)]="objeto.frequencia" name="frequencia" class="form-control" id="frequencia">
+                                    <option value="UNICA" selected>Única</option>
+                                    <option value="DIARIO">Diario</option>
+                                    <option value="MENSAL">Mensal</option>
+                                    <option value="ANUAL">Anual</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="cvv">Recebido</label> <br />
+                                    <label class="switch switch-icon switch-primary">
+                                    <input [(ngModel)]="objeto.recebido" name="recebido" type="checkbox" class="switch-input">
+                                    <span class="switch-label" data-on="SIM" data-off="NÃO"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                                </div>
+                            </div>
+                        </div>-->
+
+                        <!--<div class="row">
+
+                            <div class="form-group col-sm-6">
+                                <label for="previsto">Valor Estimado</label>
+                                <div class="controls">
+                                    <div class="input-prepend input-group">
+                                        <span class="input-group-addon">R$</span>
+                                        <input [(ngModel)]="objeto.estimado" name="estimado" class="form-control" id="estimado" size="16" type="number">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="real">Valor Real</label>
+                                <div class="controls">
+                                    <div class="input-prepend input-group">
+                                        <span class="input-group-addon">R$</span>
+                                        <input [(ngModel)]="objeto.real" name="real" class="form-control" id="real" size="16" type="number">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>-->
+
+                    </form>
+                </div>
+
+                 <div class="card-footer">
+                    <button class="btn btn-primary" (click)="salvar()" [disabled]="loading" type="submit">Salvar</button>
+                    <a class="btn btn-secondary btn-md" [routerLink]="['/<%= generatorName %>/consultar']">Voltar</a>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!--row-->
+    <div class="row animated fadeIn" [hidden]="!aviso">
+        <div class="col-lg-12">
+            <div class="card card-inverse card-info">
+                <div class="card-header">
+                    <i class="fa fa-info-circle"></i> Aviso
+                </div>
+                <div class="card-block text-xs-center">
+                    <p>{{aviso}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/row-->
+
+    <!--/row-->
+    <!--<div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> Debug
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <pre>{{loading | json}}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!--/row-->
+
+</div>

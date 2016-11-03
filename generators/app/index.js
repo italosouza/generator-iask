@@ -81,15 +81,14 @@ module.exports = generators.Base.extend({
     }, {
       local: require.resolve('../config')
     });
+
   },
 
   //grava as informações no disco
   writing: function() {},
 
   install: function() {
-    this.installDependencies({
-      bower: true
-    });
+    // this.installDependencies();
   },
 
   end: function() {

@@ -28,18 +28,86 @@ module.exports = generators.Base.extend({
       process.exit(1);
     };
 
+    // copiar arquivos basicos do componente
     this.fs.copyTpl(
-      this.templatePath('modulo/modulo.js'),
-      this.destinationPath(path.join('./client/modules/', this.namespace, '/', this.namespace + '.js')), {
+      this.templatePath('components/modulo.module.ts'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/', this.namespace + '.module.ts')), {
         //troca as tags <%= generatorName %> pelo valor passado por parametro
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
     );
 
+    // conteudo do componente
     this.fs.copyTpl(
-      this.templatePath('modulo/modulo.html'),
-      this.destinationPath(path.join('./client/modules/', this.namespace, '/', this.namespace + '.html')), {
+      this.templatePath('components/components/modulo.cad.component.html'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/components/', this.namespace + '.cad.component.html')), {
+        generatorName: this.namespace,
+        generatorModel: _.capitalize(this.namespace)
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('components/components/modulo.cad.component.spec.ts'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/components/', this.namespace + '.cad.component.spec.ts')), {
+        generatorName: this.namespace,
+        generatorModel: _.capitalize(this.namespace)
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('components/components/modulo.cad.component.ts'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/components/', this.namespace + '.cad.component.ts')), {
+        generatorName: this.namespace,
+        generatorModel: _.capitalize(this.namespace)
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('components/components/modulo.component.css'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/components/', this.namespace + '.component.css')), {
+        generatorName: this.namespace,
+        generatorModel: _.capitalize(this.namespace)
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('components/components/modulo.cons.component.html'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/components/', this.namespace + '.cons.component.html')), {
+        generatorName: this.namespace,
+        generatorModel: _.capitalize(this.namespace)
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('components/components/modulo.cons.component.spec.ts'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/components/', this.namespace + '.cons.component.spec.ts')), {
+        generatorName: this.namespace,
+        generatorModel: _.capitalize(this.namespace)
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('components/components/modulo.cons.component.ts'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/components/', this.namespace + '.cons.component.ts')), {
+        generatorName: this.namespace,
+        generatorModel: _.capitalize(this.namespace)
+      }
+    );
+
+    // conteudo do model
+    this.fs.copyTpl(
+      this.templatePath('components/models/modulo.ts'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/models/', this.namespace + '.ts')), {
+        generatorName: this.namespace,
+        generatorModel: _.capitalize(this.namespace)
+      }
+    );
+
+    // conteudo do service
+    this.fs.copyTpl(
+      this.templatePath('components/services/modulo.service.ts'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/services/', this.namespace + '.service.ts')), {
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
