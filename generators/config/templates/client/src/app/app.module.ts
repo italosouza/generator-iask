@@ -34,6 +34,7 @@ import { PainelComponent }              from './painel/components/painel.compone
 
 // modulos
 //Importe os modulos aqui!
+// import { ExemploModule }                  from './exemplo/exemplo.module';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { PainelComponent }              from './painel/components/painel.compone
         Ng2BootstrapModule,
         ChartsModule,
         //declare os modulos aqui!
+        // ExemploModule
         
     ],
     declarations: [
