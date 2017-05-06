@@ -1,119 +1,48 @@
-import { Routes, RouterModule }         from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { AuthGuard } from './shared/auth.guard';
 
 // Layouts
-import { FullLayoutComponent }          from './layouts/full-layout.component';
-import { SimpleLayoutComponent }        from './layouts/simple-layout.component';
+import { FullLayoutComponent } from './layouts/full-layout.component';
+import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 
-// Pages
-import { p404Component }                from './pages/404.component';
-import { p500Component }                from './pages/500.component';
-import { LoginComponent }               from './pages/login.component';
-import { RegisterComponent }            from './pages/register.component';
+export const routes: Routes = [
+  // default root page
+  { path: '', redirectTo: 'painel', pathMatch: 'full' },
+  { path: 'login', redirectTo: 'auth/login' },
+  { path: 'register', redirectTo: 'auth/register' },
 
-// Painel
-import { PainelComponent }           from './painel/components/painel.component';
-
-// Modulos
-// Importe os modulos aqui, para definir suas rotas
-
-const appRoutes: Routes = [
-    // raiz da navegação
-    {
-        path: '',
-        redirectTo: 'pages/login',
-        pathMatch: 'full',
-    },
-    // navegação com menu
-    {
-        path: '',
-        component: FullLayoutComponent,
-        data: {
-            title: 'Home'
-        },
-        // primeiro nivel da navegação com menu
-        children: [
-            { path: 'painel', component: PainelComponent, data: { title: 'Painel' } },
-
-            // primeiro nivel com submenu
-            // { path: 'receitas', redirectTo: 'receitas/consultar', pathMatch: 'full', },
-            // { path: 'receitas', data: { title: 'Receitas' },
-            //     children: [
-            //         { path: 'consultar', component: ReceitasConsComponent, data: { title: 'Consultar' } },
-            //         { path: 'cadastrar', component: ReceitasCadComponent, data: { title: 'Cadastrar' } },
-            //         { path: 'cadastrar/:id', component: ReceitasCadComponent, data: { title: 'Alterar' } }
-            //     ]
-            // },
-
-            // declaracao do componente
-            // {
-            //     path: 'processo',
-            //     redirectTo: 'processo/consulta',
-            //     pathMatch: 'full',
-            // },
-            // {
-            //     path: 'processo',
-            //     data: {
-            //         title: 'Processo'
-            //     },
-            //     //navegação nas paginas do componente
-            //     children: [
-            //         {
-            //             path: 'consultar',
-            //             component: ProcessoConsComponent,
-            //             data: {
-            //                 title: 'Consulta'
-            //             }
-            //         },
-            //         {
-            //             path: 'visualizar',
-            //             component: ProcessoVisComponent,
-            //             data: {
-            //                 title: 'Detalhes'
-            //             }
-            //         },
-            //     ]
-            // }
-        ]
-    },
-    // navegação sem menu
-    {
-        path: 'pages',
-        component: SimpleLayoutComponent,
-        data: {
-            title: 'Pages'
-        },
-        // paginas visualizadas sem o menu
-        children: [
-            {
-                path: '404',
-                component: p404Component,
-                data: {
-                    title: 'Page 404'
-                }
-            },
-            {
-                path: '500',
-                component: p500Component,
-                data: {
-                    title: 'Page 500'
-                }
-            },
-            {
-                path: 'login',
-                component: LoginComponent,
-                data: {
-                    title: 'Login Page'
-                }
-            },
-            {
-                path: 'register',
-                component: RegisterComponent,
-                data: {
-                    title: 'Register Page'
-                }
-            }
-        ]
-    }
+  // pages at root level
+  // invidivual component route declared at *module*-routing.module.ts
+  {
+    path: '', component: FullLayoutComponent, data: { title: 'Home' }, canActivate: [AuthGuard],
+    children: [
+      { path: 'painel', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+      { path: 'components', loadChildren: './components/components.module#ComponentsModule' },
+      { path: 'icons', loadChildren: './icons/icons.module#IconsModule' },
+      { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' },
+      { path: 'charts', loadChildren: './chartjs/chartjs.module#ChartJSModule' }
+    ]
+  },
+  {
+    path: 'auth', component: SimpleLayoutComponent, data: { title: 'Autenticar' },
+    children: [
+      { path: '', loadChildren: './login/login.module#LoginModule' }
+    ]
+  },
+  // pages at 'pages' level
+  {
+    path: 'pages', component: SimpleLayoutComponent, data: { title: 'Pages' },
+    children: [
+      { path: '', loadChildren: './pages/pages.module#PagesModule', },
+      { path: '', loadChildren: './login/login.module#LoginModule' }
+    ]
+  }
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

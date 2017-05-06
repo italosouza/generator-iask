@@ -36,8 +36,13 @@ module.exports = generators.Base.extend({
     );
 
     this.fs.copy(
-      this.templatePath('modelo.env'),
-      this.destinationPath(path.join('./.env'))
+      this.templatePath('server/dev.env'),
+      this.destinationPath(path.join('./server/dev.env'))
+    );
+
+    this.fs.copy(
+      this.templatePath('server/prod.env'),
+      this.destinationPath(path.join('./server/prod.env'))
     );
 
     //conteudo relacionado ao front
@@ -74,6 +79,11 @@ module.exports = generators.Base.extend({
     this.fs.copyTpl(
       this.templatePath('client/.gitignore'),
       this.destinationPath(path.join('./client/.gitignore'))
+    );
+
+    this.fs.copy(
+      this.templatePath('client/.editorconfig'),
+      this.destinationPath(path.join('./client/.editorconfig'))
     );
 
     this.fs.copyTpl(
@@ -114,6 +124,11 @@ module.exports = generators.Base.extend({
     this.fs.copy(
       this.templatePath('client/**/**.jpg'),
       this.destinationPath(path.join('./client/'))
+    );
+
+    this.fs.copy(
+      this.templatePath('client/src/scss/**/**.scss'),
+      this.destinationPath(path.join('./client/src/scss/'))
     );
 
     //gerador do sub-modulo

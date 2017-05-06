@@ -1,72 +1,56 @@
-// core modules
-import { NgModule }                     from '@angular/core';
-import { BrowserModule }                from '@angular/platform-browser';
-import { LocationStrategy, HashLocationStrategy }         from '@angular/common';
-import { AppComponent }                 from './app.component';
-import { routing }                      from './app.routing';
-import { Ng2BootstrapModule }           from 'ng2-bootstrap/ng2-bootstrap';
-import { ChartsModule }                 from 'ng2-charts/ng2-charts';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-// shared
-import { SIDEBAR_TOGGLE_DIRECTIVES }    from './shared/sidebar.directive';
-import { AsideToggleDirective }         from './shared/aside.directive';
-import { BreadcrumbsComponent }         from './shared/breadcrumb.component';
-import { NAV_DROPDOWN_DIRECTIVES }      from './shared/nav-dropdown.directive';
+import { AppComponent } from './app.component';
+import { DropdownModule } from 'ng2-bootstrap/dropdown';
+import { TabsModule } from 'ng2-bootstrap/tabs';
+import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
 
-// routes
-import { HttpModule, JsonpModule }      from '@angular/http';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
+import { AsideToggleDirective } from './shared/aside.directive';
+import { BreadcrumbsComponent } from './shared/breadcrumb.component';
+
+// Routing Module
+import { AppRoutingModule } from './app.routing';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 // Layouts
-import { FullLayoutComponent }          from './layouts/full-layout.component';
-import { SimpleLayoutComponent }        from './layouts/simple-layout.component';
+import { FullLayoutComponent } from './layouts/full-layout.component';
+import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 
-// Pages
-import { p404Component }                from './pages/404.component';
-import { p500Component }                from './pages/500.component';
-import { LoginComponent }               from './pages/login.component';
-import { RegisterComponent }            from './pages/register.component';
+import { AuthGuard } from './shared/auth.guard';
+import { AuthenticationService } from './login/services/authentication.service';
 
-// auth
-import { AuthenticationService }        from './pages/authentication.service';
-
-// Painel
-import { PainelComponent }              from './painel/components/painel.component';
-
-// modulos
-//Importe os modulos aqui!
-// import { ExemploModule }                  from './exemplo/exemplo.module';
+import { DinheiroPipe } from "./shared/dinheiro.pipe";
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        routing,
-        HttpModule,
-        JsonpModule,
-        Ng2BootstrapModule,
-        ChartsModule,
-        //declare os modulos aqui!
-        // ExemploModule
-        
-    ],
-    declarations: [
-        AppComponent,
-        FullLayoutComponent,
-        SimpleLayoutComponent,
-        p404Component,
-        p500Component,
-        LoginComponent,
-        RegisterComponent,
-        NAV_DROPDOWN_DIRECTIVES,
-        BreadcrumbsComponent,
-        SIDEBAR_TOGGLE_DIRECTIVES,
-        AsideToggleDirective,
-        PainelComponent
-    ],
-    providers: [{
-        provide: LocationStrategy,
-        useClass: HashLocationStrategy,
-    },    
-    AuthenticationService],
-    bootstrap: [ AppComponent ]
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    DropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ChartsModule,
+    HttpModule,
+    JsonpModule
+  ],
+  declarations: [
+    AppComponent,
+    FullLayoutComponent,
+    SimpleLayoutComponent,
+    NAV_DROPDOWN_DIRECTIVES,
+    BreadcrumbsComponent,
+    SIDEBAR_TOGGLE_DIRECTIVES,
+    AsideToggleDirective,
+    DinheiroPipe
+  ],
+  providers: [{
+    provide: LocationStrategy,
+    useClass: HashLocationStrategy
+  },
+    AuthenticationService,
+    AuthGuard],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

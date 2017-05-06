@@ -1,10 +1,10 @@
-import { CoreUIPage } from './app.po';
+import { CoreUiPage } from './app.po';
 
-describe('core-ui App', function() {
-  let page: CoreUIPage;
+describe('core-ui App', function () {
+  let page: CoreUiPage;
 
   beforeEach(() => {
-    page = new CoreUIPage();
+    page = new CoreUiPage();
   });
 
   it('should display message saying app works', () => {

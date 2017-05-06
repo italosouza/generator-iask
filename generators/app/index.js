@@ -67,6 +67,10 @@ module.exports = generators.Base.extend({
       this.templatePath('*.md'),
       this.destinationPath(path.join('./'))
     );
+    this.fs.copy(
+      this.templatePath('.editorconfig'),
+      this.destinationPath(path.join('./.editorconfig'))
+    );
 
     //define o arquivo template (corresponde a pasta template contida na pasta autal [app])
     var pkg = this.fs.readJSON(this.templatePath('package.json'), {});
@@ -93,7 +97,9 @@ module.exports = generators.Base.extend({
 
   end: function() {
 
-    this.log(yosay('\nPara criar um módulo digite: \nyo iask:scaffold modulo\ngulp build'));
+    this.log(yosay(`
+    \nAtenção às dependencias globais:\nnpm install -g @angular/cli gulp
+    \nExperimente os comandos: \nyo iask:scaffold COMPONENTE\nnpm run build`, { maxLength: 50 }));
   }
 
 });

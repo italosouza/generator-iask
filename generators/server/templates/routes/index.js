@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function (app) {
   var controller = app.controllers.<%= generatorName %>;
   var auth = app.services.auth;
 

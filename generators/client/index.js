@@ -38,6 +38,15 @@ module.exports = generators.Base.extend({
       }
     );
 
+    this.fs.copyTpl(
+      this.templatePath('components/modulo-routing.module.ts'),
+      this.destinationPath(path.join('./client/src/app/', this.namespace, '/', this.namespace + '-routing.module.ts')), {
+        //troca as tags <%= generatorName %> pelo valor passado por parametro
+        generatorName: this.namespace,
+        generatorModel: _.capitalize(this.namespace)
+      }
+    );
+
     // conteudo do componente
     this.fs.copyTpl(
       this.templatePath('components/components/modulo.cad.component.html'),

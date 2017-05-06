@@ -1,121 +1,154 @@
 <div class="animated fadeIn">
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-search"></i> Pesquisar
-                    <div class="card-actions">
-                        <a class="btn-close" [hidden]="!loading"><i class="fa fa-spin fa-refresh"></i></a>
-                        <!--<a class="btn-setting" [routerLink]="['/<%= generatorName %>/cadastrar']"><i class="fa fa-plus-square-o"></i></a>-->
-                        <!--<a class="btn-minimize" href="#"><i class="icon-arrow-up"></i></a>-->
-                    </div>
-                </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-search"></i> Pesquisar
+          <div class="card-actions">
+            <a class="btn-close" [hidden]="!loading"><i class="fa fa-spin fa-refresh"></i></a>
+            <!--<a class="btn-setting" [routerLink]="['/<%= generatorName %>/cadastrar']"><i class="fa fa-plus-square-o"></i></a>-->
+            <!--<a class="btn-minimize" href="#"><i class="icon-arrow-up"></i></a>-->
+          </div>
+        </div>
 
-                <div class="card-block" [hidden]="filtroHabilitado">
+        <div class="card-block" [hidden]="filtroHabilitado">
 
-                  <div class="row">
-                      <div class="col-sm-4 col-md-4">
-                          <div class="form-group">
-                              <label for="nome">Nome</label>
-                              <input [(ngModel)]="filtro.nome" name="nome" class="form-control" id="prependedInput" size="16" type="text">
-                          </div>
-                      </div>
-                      <div class="col-sm-2 col-md-4">
-                          <div class="form-group">
-                              <label for="ccnumber">Ativo</label> <br />
-                              <label class="switch switch-icon switch-primary">
-                                  <input [(ngModel)]="filtro.ativo" type="checkbox" class="switch-input" >
-                                  <span class="switch-label" data-on="SIM" data-off="NÃO"></span>
-                                  <span class="switch-handle"></span>
-                              </label>
-                          </div>
-                      </div>
+          <div class="row">
+            <div class="col-sm-4 col-md-4">
+              <div class="form-group">
+                <label for="tipo">Tipo</label>
+                <!--[(ngModel)]="filtro.tipo"-->
+                <select  class="form-control" id="tipo">
+                  <option value='' selected="selected">Todos</option>
+                  <option value='PREVISTO'>Previsto</option>
+                  <option value='EVENTUAL'>Eventual</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-2 col-md-4">
+              <div class="form-group">
+                <label for="ccnumber">Recebido</label> <br />
+                <label class="switch switch-icon switch-primary">
+                  <!--[(ngModel)]="filtro.recebido"-->
+                  <input  type="checkbox" class="switch-input" >
+                  <span class="switch-label" data-on="SIM" data-off="NÃO"></span>
+                  <span class="switch-handle"></span>
+                </label>
+              </div>
+            </div>
 
-                      <div class="col-sm-6 col-md-4">
-                          <div class="form-group pull-right">
-                              <label>&nbsp;</label> <br />
-                              <button (click)="carregarDados()" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Pesquisar</button>
-                          </div>
-                      </div>
+            <div class="col-sm-6 col-md-4">
+              <div class="form-group pull-right">
+                <label>&nbsp;</label> <br />
+                <button (click)="carregarDados()" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Pesquisar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--/row-->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i>
+          <%= generatorModel %>
+            <div class="card-actions">
+              <a class="btn-close" [hidden]="!loading"><i class="fa fa-spin fa-refresh"></i></a>
+              <a class="btn-setting" [routerLink]="['/<%= generatorName %>/cadastrar']"><i class="fa fa-plus-square-o"></i></a>
+              <!--<a class="btn-minimize" href="#"><i class="icon-arrow-up"></i></a>-->
+            </div>
+        </div>
+
+        <div class="card-block">
+
+          <table class="table table-bordered table-striped table-condensed">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Estimado</th>
+                <th>Real</th>
+                <th>Diferença</th>
+                <th>Recebido</th>
+                <th class="text-xs-center">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of lista">
+                <td>{{item.nome}}</td>
+                <td>{{item.tipo}}</td>
+                <td>
+                  <div class="text-xs-right">
+                    {{item.estimado}}
                   </div>
-                </div>
-            </div>
+                </td>
+                <td>
+                  <div class="text-xs-right">
+                    {{item.real}}
+                  </div>
+                </td>
+                <td>
+                  <div class="text-xs-right">
+                    {{item.real - item.estimado}}
+                  </div>
+                </td>
+                <td>
+                  <div class="text-xs-center">
+                    <span class="tag tag-pill" [ngClass]="{'tag-success': item.recebido, 'tag-primary': !item.recebido}">{{item.getRecebido()}}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-xs-center">
+                    <a class="btn btn-primary btn-sm" [routerLink]="['/<%= generatorName %>/cadastrar', item._id]"><i class="fa fa-edit"></i> Editar</a>
+                    <button class="btn btn-sm btn-danger" (click)="excluir(item)" type="reset"><i class="fa fa-remove "></i> Excluir</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <nav class="pull-right">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link">Anterior</a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link">1</a>
+              </li>
+              <li class="page-item"><a class="page-link">2</a>
+              </li>
+              <li class="page-item"><a class="page-link">Próximo</a>
+              </li>
+            </ul>
+          </nav>
+
         </div>
+      </div>
     </div>
+  </div>
+  <!--/row-->
 
-    <!--/row-->
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-align-justify"></i> <%= generatorModel %>
-                    <div class="card-actions">
-                        <a class="btn-close" [hidden]="!loading"><i class="fa fa-spin fa-refresh"></i></a>
-                        <a class="btn-setting" [routerLink]="['/<%= generatorName %>/cadastrar']"><i class="fa fa-plus-square-o"></i></a>
-                        <!--<a class="btn-minimize" href="#"><i class="icon-arrow-up"></i></a>-->
-                    </div>
-                </div>
-
-                <div class="card-block">
-
-                    <table class="table table-bordered table-striped table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th class="text-xs-center">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of lista">
-                                <td>{{item.nome}}</td>
-                                <td>
-                                    <div class="text-xs-center">
-                                        <a class="btn btn-primary btn-sm" [routerLink]="['/<%= generatorName %>/cadastrar', item._id]"><i class="fa fa-edit"></i> Editar</a>
-                                        <button class="btn btn-sm btn-danger" (click)="excluir(item)"  type="reset"><i class="fa fa-remove "></i> Excluir</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <nav class="pull-right">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" >Anterior</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" >1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" >2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" >Próximo</a>
-                            </li>
-                        </ul>
-                    </nav>
-
-                </div>
-            </div>
+  <!--row-->
+  <div class="row animated fadeIn" [hidden]="!aviso">
+    <div class="col-lg-12">
+      <div class="card card-inverse card-info">
+        <div class="card-header">
+          <i class="fa fa-info-circle"></i> Aviso
         </div>
-    </div>
-    <!--/row-->
-
-    <!--row-->
-    <div class="row animated fadeIn" [hidden]="!aviso">
-        <div class="col-lg-12">
-            <div class="card card-inverse card-info">
-                <div class="card-header">
-                    <i class="fa fa-info-circle"></i> Aviso
-                </div>
-                <div class="card-block text-xs-center">
-                    <p>{{aviso}}</p>
-                </div>
-            </div>
+        <div class="card-block text-xs-center">
+          <p>{{aviso}}</p>
         </div>
+      </div>
     </div>
-    <!--/row-->
+  </div>
+  <!--/row-->
 
-    <!--row-->
-    <!--<div class="row">
+  <!--row-->
+  <!--<div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
@@ -130,7 +163,7 @@
             </div>
         </div>
     </div>-->
-    <!--/row-->
+  <!--/row-->
 
 
 </div>
