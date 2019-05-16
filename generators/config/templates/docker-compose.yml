@@ -1,0 +1,65 @@
+version: '3'
+
+# docker swarm init
+# docker stack deploy -c docker-compose.yml appName
+# docker stack ps appName
+# docker stack rm appName
+# docker swarm leave --force
+
+services:
+  rsspipeline-app:
+    image: italosouza/rsspipeline-app
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.2"
+          memory: 100M
+    ports:
+      - 80:80
+    depends_on:
+      - rsspipeline-mqtt
+    networks:
+      - backend
+      - frontend
+
+  rsspipeline-mqtt:
+    image: toke/mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - mosquitto_data:/mqtt/data
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 100M
+    networks:
+      - backend
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "9090:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 100M
+    networks:
+      - backend
+      - frontend
+
+networks:
+  backend:
+  frontend:
+
+volumes:
+  mosquitto_data:

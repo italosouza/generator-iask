@@ -1,51 +1,51 @@
-'use strict';
-var path = require('path');
-var generators = require('yeoman-generator');
-var _ = require('lodash');
+'use strict'
+var path = require('path')
+var generators = require('yeoman-generator')
+var _ = require('lodash')
 
 module.exports = generators.Base.extend({
 
   constructor: function() {
-    generators.Base.apply(this, arguments);
+    generators.Base.apply(this, arguments)
 
     if (arguments[0] == '') {
-      this.log.error('Para construir um módulo cliente, informe o nome do módulo.');
-      process.exit(1);
+      this.log.error('Para construir um módulo cliente, informe o nome do módulo.')
+      process.exit(1)
     };
 
     this.argument('namespace', {
       type: String,
       required: true,
       description: 'Nome do módulo'
-    });
+    })
   },
 
-  //este modulo espera que o package.json já tenha sido criado
+  // este modulo espera que o package.json já tenha sido criado
   writing: function() {
-    var packageJSON = this.fs.readJSON(this.destinationPath('package.json')) || {};
+    var packageJSON = this.fs.readJSON(this.destinationPath('package.json')) || {}
     if (packageJSON.name == undefined) {
-      this.log.error('Este comando deve ser executado no diretório do projeto.');
-      process.exit(1);
+      this.log.error('Este comando deve ser executado no diretório do projeto.')
+      process.exit(1)
     };
 
     // copiar arquivos basicos do componente
     this.fs.copyTpl(
       this.templatePath('components/modulo.module.ts'),
       this.destinationPath(path.join('./client/src/app/', this.namespace, '/', this.namespace + '.module.ts')), {
-        //troca as tags <%= generatorName %> pelo valor passado por parametro
+        // troca as tags <%= generatorName %> pelo valor passado por parametro
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath('components/modulo-routing.module.ts'),
       this.destinationPath(path.join('./client/src/app/', this.namespace, '/', this.namespace + '-routing.module.ts')), {
-        //troca as tags <%= generatorName %> pelo valor passado por parametro
+        // troca as tags <%= generatorName %> pelo valor passado por parametro
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     // conteudo do componente
     this.fs.copyTpl(
@@ -54,7 +54,7 @@ module.exports = generators.Base.extend({
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath('components/components/modulo.cad.component.spec.ts'),
@@ -62,7 +62,7 @@ module.exports = generators.Base.extend({
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath('components/components/modulo.cad.component.ts'),
@@ -70,7 +70,7 @@ module.exports = generators.Base.extend({
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath('components/components/modulo.component.css'),
@@ -78,7 +78,7 @@ module.exports = generators.Base.extend({
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath('components/components/modulo.cons.component.html'),
@@ -86,7 +86,7 @@ module.exports = generators.Base.extend({
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath('components/components/modulo.cons.component.spec.ts'),
@@ -94,7 +94,7 @@ module.exports = generators.Base.extend({
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     this.fs.copyTpl(
       this.templatePath('components/components/modulo.cons.component.ts'),
@@ -102,7 +102,7 @@ module.exports = generators.Base.extend({
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     // conteudo do model
     this.fs.copyTpl(
@@ -111,7 +111,7 @@ module.exports = generators.Base.extend({
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
+    )
 
     // conteudo do service
     this.fs.copyTpl(
@@ -120,7 +120,6 @@ module.exports = generators.Base.extend({
         generatorName: this.namespace,
         generatorModel: _.capitalize(this.namespace)
       }
-    );
-
+    )
   }
-});
+})
