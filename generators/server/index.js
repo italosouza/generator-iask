@@ -1,55 +1,90 @@
-'use strict'
-var path = require('path')
-var generators = require('yeoman-generator')
-var _ = require('lodash')
+const path = require('path')
+const Generator = require('yeoman-generator')
+const _ = require('lodash')
+const mkdirp = require('mkdirp')
 
-module.exports = generators.Base.extend({
-  constructor: function() {
-    generators.Base.apply(this, arguments)
+const sPASTAADONIS = 'adonisjs'
+const sPASTAEXPMONGODB = 'expressMongoDB'
+const sPASTAEXPSEQUELIZE = 'expressSequelize'
+const sADONIS = 'AdonisJS'
+const sEXPMONGODB = 'ExpressJS - MongoDB'
+const sEXPSEQUELIZE = 'ExpressJS - Sequelize'
 
-    if (arguments[0] === '') {
-      this.log.error('Para construir um módulo servidor, informe o nome do módulo.')
-      process.exit(1)
+module.exports = class extends Generator {
+  // constructor(args, opts) {
+  //   super(args, opts)
+
+  // const packageJSON = this.fs.readJSON(this.destinationPath('package.yml')) || {}
+  // if (packageJSON.name === undefined) {
+  //   this.log.error('Este comando deve ser executado no diretório do projeto.')
+  //   process.exit(1)
+  // }
+  // }
+
+  async prompting() {
+    this.answers = await this.prompt([
+      {
+        type: 'input',
+        name: 'serviceName',
+        default: 'core-api',
+        filter: val => val.toLowerCase(),
+        message: 'Informe o nome do serviço:'
+      },
+      {
+        type: 'list',
+        name: 'tech',
+        message: 'Qual tecnologia vamos utilizar?',
+        choices: [sADONIS, sEXPMONGODB, sEXPSEQUELIZE],
+        store: true,
+        validate: answer => {
+          return answer.length < 1 ? 'Necessário escolher pelo menos uma opção.' : true
+        }
+      }
+    ])
+  }
+
+  writing() {
+    const { serviceName, tech } = this.answers
+
+    mkdirp(serviceName)
+
+    let templatePath = ''
+    switch (tech) {
+      case sADONIS:
+        templatePath = sPASTAADONIS
+        break
+      case sEXPMONGODB:
+        templatePath = sPASTAEXPMONGODB
+        break
+      case sEXPSEQUELIZE:
+        templatePath = sPASTAEXPSEQUELIZE
+        break
+      default:
+        break
     }
-
-    this.argument('namespace', {
-      type: String,
-      required: true,
-      description: 'Nome do módulo'
-    })
-  },
-
-  // este modulo espera que o package.json já tenha sido criado
-  writing: function() {
-    var packageJSON = this.fs.readJSON(this.destinationPath('package.json')) || {}
-    if (packageJSON.name === undefined) {
-      this.log.error('Este comando deve ser executado no diretório do projeto.')
-      process.exit(1)
-    }
+    this.destinationRoot(this.destinationPath(serviceName))
+    this.log(this.destinationPath())
 
     this.fs.copyTpl(
-      this.templatePath('routes/index.js'),
-      this.destinationPath(path.join('./server/app/routes/' + this.namespace + '.js')),
+      this.templatePath(path.join(templatePath, '/', 'package.json')),
+      this.destinationPath('./package.json'),
       {
         // troca as tags <%= generatorName %> pelo valor passado por parametro
-        generatorName: this.namespace
+        generatorName: serviceName
       }
     )
 
-    this.fs.copyTpl(
-      this.templatePath('models/index.js'),
-      this.destinationPath(path.join('./server/app/models/' + this.namespace + '.js')),
-      {
-        generatorName: this.namespace,
-        generatorModel: _.capitalize(this.namespace)
-      }
+    this.fs.copy(
+      this.templatePath(path.join(templatePath, '/', 'readme.md')),
+      this.destinationPath('./readme.md')
     )
 
     this.fs.copyTpl(
-      this.templatePath('controllers/index.js'),
-      this.destinationPath(path.join('./server/app/controllers/' + this.namespace + '.js')),
+      this.templatePath(path.join(templatePath, '/', 'src/**/*.*')),
+      this.destinationPath('./src/'),
       {
-        generatorName: this.namespace
+        generatorName: serviceName,
+        generatorModel: _.capitalize(serviceName)
       }
     )
 
@@ -61,4 +96,4 @@ module.exports = generators.Base.extend({
     //   }
     // );
   }
-})
+}

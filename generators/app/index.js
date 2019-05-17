@@ -87,11 +87,11 @@ module.exports = class extends Generator {
     //   })
     // }
 
-    // if (this.answers.modulos.includes(sBACKEND)) {
-    //   this.composeWith(require.resolve('../server'), {
-    //     arguments: [this.answers]
-    //   })
-    // }
+    if (this.answers.modulos.includes(sBACKEND)) {
+      this.composeWith(require.resolve('../server'), {
+        arguments: [this.answers.projectName]
+      })
+    }
   }
 
   /**
