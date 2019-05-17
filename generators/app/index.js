@@ -81,11 +81,11 @@ module.exports = class extends Generator {
       arguments: [this.answers]
     })
 
-    // if (this.answers.modulos.includes(sBACKEND)) {
-    //   this.composeWith(require.resolve('../client'), {
-    //     arguments: [this.answers]
-    //   })
-    // }
+    if (this.answers.modulos.includes(sFRONTEND)) {
+      this.composeWith(require.resolve('../client'), {
+        arguments: [this.answers.projectName]
+      })
+    }
 
     if (this.answers.modulos.includes(sBACKEND)) {
       this.composeWith(require.resolve('../server'), {

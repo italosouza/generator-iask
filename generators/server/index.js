@@ -63,7 +63,6 @@ module.exports = class extends Generator {
         break
     }
     this.destinationRoot(this.destinationPath(serviceName))
-    this.log(this.destinationPath())
 
     this.fs.copyTpl(
       this.templatePath(path.join(templatePath, '/', 'package.json')),
