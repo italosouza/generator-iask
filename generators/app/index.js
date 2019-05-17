@@ -67,7 +67,6 @@ module.exports = class extends Generator {
           'Neste caso, iremos criar esta pasta para você.\n'
       )
       mkdirp(this.answers.projectName)
-      this.destinationRoot(this.destinationPath(this.answers.projectName))
     }
   }
 
@@ -78,7 +77,7 @@ module.exports = class extends Generator {
     // gerador do sub-modulo
 
     this.composeWith(require.resolve('../config'), {
-      arguments: [this.answers]
+      arguments: [this.answers.projectName]
     })
 
     if (this.answers.modulos.includes(sFRONTEND)) {

@@ -4,6 +4,11 @@ const _ = require('lodash')
 const mkdirp = require('mkdirp')
 
 module.exports = class extends Generators {
+  constructor(args, opts) {
+    super(args, opts)
+    this.projectName = args[0]
+  }
+
   async prompting() {
     this.answers = await this.prompt([
       {
@@ -11,26 +16,29 @@ module.exports = class extends Generators {
         name: 'serviceName',
         default: 'core-app',
         filter: val => val.toLowerCase(),
-        message: 'Informe o nome do serviço:'
+        message: 'Informe o nome do serviço (Frontend):'
       }
     ])
   }
 
-  // este modulo espera que o package.json já tenha sido criado
+  configuring() {
+    if (path.basename(this.destinationPath()) !== this.projectName) {
+      this.log(`\nCriando novo diretorio para configurações extra: config.\n`)
+      mkdirp(path.join(this.projectName, '/', this.answers.serviceName))
+    }
+  }
+
   writing() {
     const { serviceName } = this.answers
-    mkdirp(serviceName)
-    this.destinationRoot(this.destinationPath(serviceName))
+    const { projectName } = this
 
-    // const packageJSON = this.fs.readJSON(this.destinationPath('package.json')) || {}
-    // if (packageJSON.name === undefined) {
-    //   this.log.error('Este comando deve ser executado no diretório do projeto.')
-    //   process.exit(1)
-    // }
-
-    this.fs.copyTpl(this.templatePath(path.join('./**/*.*')), this.destinationPath('./'), {
-      generatorName: serviceName,
-      generatorModel: _.capitalize(serviceName)
-    })
+    this.fs.copyTpl(
+      this.templatePath(path.join('./**/*.*')),
+      this.destinationPath(path.join(projectName, serviceName, '/')),
+      {
+        generatorName: serviceName,
+        generatorModel: _.capitalize(serviceName)
+      }
+    )
   }
 }

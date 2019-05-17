@@ -28,7 +28,7 @@ module.exports = class extends Generator {
         name: 'serviceName',
         default: 'core-api',
         filter: val => val.toLowerCase(),
-        message: 'Informe o nome do serviço:'
+        message: 'Informe o nome do serviço (API):'
       },
       {
         type: 'list',
@@ -43,9 +43,15 @@ module.exports = class extends Generator {
     ])
   }
 
+  configuring() {
+    if (path.basename(this.destinationPath()) !== this.projectName) {
+      this.log(`\nCriando novo diretorio para configurações extra: config.\n`)
+      mkdirp(path.join(this.projectName, '/', this.answers.serviceName))
+    }
+  }
+
   writing() {
     const { serviceName, tech } = this.answers
-
     mkdirp(serviceName)
 
     let templatePath = ''
@@ -62,7 +68,6 @@ module.exports = class extends Generator {
       default:
         break
     }
-    this.destinationRoot(this.destinationPath(serviceName))
 
     this.fs.copyTpl(
       this.templatePath(path.join(templatePath, '/', 'package.json')),
