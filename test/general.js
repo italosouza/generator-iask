@@ -1,11 +1,11 @@
-'use strict';
-var path = require('path');
-var helpers = require('yeoman-generator').test;
-var assert = require('yeoman-assert');
+const path = require('path')
+const helpers = require('yeoman-generator').test
+const assert = require('yeoman-assert')
 
 describe('gerador', function() {
   before(function(done) {
-    helpers.run(path.join(__dirname, '../generators/app'))
+    helpers
+      .run(path.join(__dirname, '../generators/app'))
       .inDir(path.join(__dirname, 'temp'))
       .withOptions({
         'skip-install': true
@@ -13,16 +13,14 @@ describe('gerador', function() {
       .withPrompts({
         features: []
       })
-      .withGenerators([
-        [helpers.createDummyGenerator(), 'mocha:app']
-      ])
-      .on('end', done);
-  });
+      .withGenerators([[helpers.createDummyGenerator(), 'mocha:app']])
+      .on('end', done)
+  })
 
   it('deve ser invocado sem gerar excessões', function() {
     // not testing the actual run of generators yet
-    require('../generators/app');
-  });
+    require('../generators/app')
+  })
 
   it('deve criar os arquivos esperados', function() {
     assert.file([
@@ -152,7 +150,6 @@ describe('gerador', function() {
       './server/app/services/auth.js',
       './server/config/database.js',
       './server/config/express.js'
-
-    ]);
-  });
-});
+    ])
+  })
+})

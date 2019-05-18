@@ -2,6 +2,7 @@ const path = require('path')
 const Generator = require('yeoman-generator')
 const _ = require('lodash')
 const mkdirp = require('mkdirp')
+const yosay = require('yosay')
 
 /**
  * Modulo gerador de configuração padrão do projeto
@@ -12,21 +13,22 @@ module.exports = class extends Generator {
     this.projectName = args[0]
 
     if (!this.projectName) {
-      this.log('Nome do projeto não foi informado.')
+      this.log(
+        yosay(
+          `Algo de errado não está certo.
+          \nNenhum nome de projeto foi informado.
+          \nTalvez você devesse tentar:
+          \nyo iask:config NOME_PROJETO`,
+          { maxLength: 50 }
+        )
+      )
       process.exit(1)
     }
-
-    // const packageJSON = this.fs.readJSON(this.destinationPath('package.json')) || {}
-    // if (packageJSON.name === undefined) {
-    //   this.log.error('Este comando deve ser executado no diretório do projeto.')
-    //   process.exit(1)
-    // }
   }
 
   configuring() {
     if (path.basename(this.destinationPath()) !== this.projectName) {
-      this.log(`\nCriando novo diretorio para configurações extra: config.\n`)
-      mkdirp(path.join(this.projectName, '/', 'config'))
+      mkdirp(path.join(this.projectName, 'config'))
     }
   }
 
@@ -34,13 +36,13 @@ module.exports = class extends Generator {
     const { projectName } = this
 
     this.fs.copy(
-      this.templatePath('./nginx.conf'),
-      this.destinationPath(path.join(projectName, './config/nginx.conf'))
+      this.templatePath('nginx.conf'),
+      this.destinationPath(path.join(projectName, 'config', 'nginx.conf'))
     )
 
     this.fs.copy(
-      this.templatePath('./docker-compose.yml'),
-      this.destinationPath(path.join(projectName, './docker-compose.yml'))
+      this.templatePath('docker-compose.yml'),
+      this.destinationPath(path.join(projectName, 'docker-compose.yml'))
     )
   }
 }

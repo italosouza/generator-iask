@@ -1,7 +1,6 @@
 const path = require('path')
 const Generator = require('yeoman-generator')
 const _ = require('lodash')
-// const extend = require('deep-extend')
 const mkdirp = require('mkdirp')
 const yosay = require('yosay')
 
@@ -20,6 +19,20 @@ module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts)
     this.props = {}
+    if (this.fs.exists('docker-compose.yml')) {
+      this.log(
+        yosay(
+          `Opa..
+          \nNão recomendamos criar um projeto dentro de outro projeto.
+          \nTalvez o mais indicado seja criar um novo serviço:
+          \nyo iask:client NOME_FRONTEND
+          yo iask:server NOME_BACKEND
+          yo iask:scaffold NOME_CRUD`,
+          { maxLength: 50 }
+        )
+      )
+      process.exit(1)
+    }
   }
 
   /**
@@ -61,10 +74,12 @@ module.exports = class extends Generator {
   configuring() {
     if (path.basename(this.destinationPath()) !== this.answers.projectName) {
       this.log(
-        '\nPor padrão o gerador deve ser invocado apartir próprio diretório: ' +
-          this.answers.projectName +
-          '\n' +
-          'Neste caso, iremos criar esta pasta para você.\n'
+        yosay(
+          `\nFuturamente os próximos comandos deverão ser executados a partir da pasta do projeto que acabos de criar "${
+            this.answers.projectName
+          }"`,
+          { maxLength: 50 }
+        )
       )
       mkdirp(this.answers.projectName)
     }
@@ -110,10 +125,12 @@ module.exports = class extends Generator {
     this.log(
       yosay(
         `
-    \nSucesso! Não esquece de acessar o diretorio
-    \n${this.answers.projectName}
-    \ne usar o comandos:
-    \nyo iask:scaffold COMPONENTE
+    \nSucesso!
+    \nNão esqueça de acessar o novo diretorio "${this.answers.projectName}"
+    \nA partir de agora você poderá executar os seguintes comandos:
+    \nyo iask:client NOME_FRONTEND
+    yo iask:server NOME_BACKEND
+    yo iask:scaffold NOME_CRUD
     `,
         { maxLength: 50 }
       )
