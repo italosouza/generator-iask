@@ -97,5 +97,19 @@ module.exports = class extends Generator {
         generatorModel: _.capitalize(serviceName)
       }
     )
+
+    this.fs.copyTpl(
+      this.templatePath(path.join(templatePath, './**/.*')),
+      this.destinationPath(path.join(projectName, serviceName)),
+      {
+        generatorName: serviceName,
+        generatorModel: _.capitalize(serviceName)
+      }
+    )
+
+    this.fs.copyTpl(
+      this.templatePath(path.join(templatePath, 'dockerfile')),
+      this.destinationPath(path.join(projectName, serviceName, 'dockerfile'))
+    )
   }
 }

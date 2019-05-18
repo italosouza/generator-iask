@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "vmqueue-frontend",
   "version": "1.0.0",
   "description": "front do gerenciador de fila",
   "keywords": [],

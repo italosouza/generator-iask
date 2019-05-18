@@ -58,6 +58,15 @@ module.exports = class extends Generators {
     )
 
     this.fs.copyTpl(
+      this.templatePath(path.join('./**/.*')),
+      this.destinationPath(path.join(projectName, serviceName)),
+      {
+        generatorName: serviceName,
+        generatorModel: _.capitalize(serviceName)
+      }
+    )
+
+    this.fs.copyTpl(
       this.templatePath(path.join('./**/*.*')),
       this.destinationPath(path.join(projectName, serviceName)),
       {
