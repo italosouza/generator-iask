@@ -18,8 +18,7 @@ module.exports = class extends Generator {
           `Algo de errado não está certo.
           \nNenhum nome de projeto foi informado.
           \nTalvez você devesse tentar:
-          \nyo iask:config NOME_PROJETO`,
-          { maxLength: 50 }
+          \nyo iask:config NOME_PROJETO`, { maxLength: 50 }
         )
       )
       process.exit(1)
@@ -43,6 +42,11 @@ module.exports = class extends Generator {
     this.fs.copy(
       this.templatePath('docker-compose.yml'),
       this.destinationPath(path.join(projectName, 'docker-compose.yml'))
+    )
+
+    this.fs.copy(
+      this.templatePath('docker-service-builder.sh'),
+      this.destinationPath(path.join(projectName, 'docker-service-builder.sh'))
     )
   }
 }
